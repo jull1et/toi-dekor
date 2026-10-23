@@ -4,3 +4,5 @@ leads/
 rassylka/
 src/
 .DS_Store
+*.pdf
+catalog/
