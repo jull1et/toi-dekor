@@ -144,6 +144,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background
 .wall button{position:relative;padding:0;border:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:var(--sand)}
 .wall button.big{grid-column:span 2;grid-row:span 2}
 .wall button.tall{grid-row:span 2}
+.wall button.wide{grid-column:span 2}
 .wall img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .wall button:hover img{transform:scale(1.04)}
 .wall .tag{position:absolute;left:10px;top:10px;background:rgba(255,255,255,.92);color:var(--ink);font:600 .68rem/1 var(--body);letter-spacing:.1em;
@@ -305,10 +306,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       </div>
       <figure>
         <div class="ph">
-          <img src="img/hero.jpg" alt="Стол молодых: белые диваны, арки из белых цветов и зелени, красная дорожка" width="1500" height="1001" fetchpriority="high">
+          <img src="img/hero.jpg" alt="Зал на той: белые чехлы на стульях с золотыми бантами, цветы на каждом столе" width="1500" height="1000" fetchpriority="high">
           <div class="sticker" aria-hidden="true"><span>Бронируем даты</span><b>на весну и лето 2027</b></div>
         </div>
-        <figcaption><b>Свадьба, 250 гостей:</b> стол молодых, арки из живых цветов, дорожка.</figcaption>
+        <figcaption><b>Той в ресторане:</b> чехлы на стульях с золотыми бантами и цветы на каждом столе.</figcaption>
       </figure>
     </div>
   </section>
@@ -329,9 +330,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="sec-head">
         <p class="eyebrow">Работы</p>
         <h2>Наши оформления</h2>
-        <p>Выберите повод, чтобы посмотреть похожие работы. Нажмите на фото, чтобы рассмотреть.</p>
+        <p>Выберите, что хотите посмотреть. Нажмите на фото, чтобы рассмотреть.</p>
       </div>
-      <div class="chips" id="chips" role="group" aria-label="Повод"></div>
+      <div class="chips" id="chips" role="group" aria-label="Что показать"></div>
       <div class="wall" id="wall"></div>
       <p class="more">Видео с тоев и другие работы пришлём в WhatsApp.</p>
     </div>
@@ -507,20 +508,25 @@ const SITE = {
   ],
   liveFlowers: 1.4,  // живые цветы: во сколько раз дороже
   perTableGuests: 10,
-  // фото: ev — повод (номер из events, -1 = для всех), big — крупная плитка 2×2, tall — высокая плитка
+  // разделы работ: подписи и раздел каждого фото должны совпадать с тем, что на фото
+  kinds: ["Залы", "Стол молодых", "Гостевые столы", "Фотозоны", "Дни рождения", "На улице"],
+  // фото: k — раздел (номер из kinds), big — крупная плитка 2×2, tall — высокая плитка
   photos: [
-    { src: "img/w01.jpg", ev: 0, cap: "Свадьба: стол молодых с подсветкой и аркой", big: true },
-    { src: "img/w02.jpg", ev: 1, cap: "Қыз ұзату: круглая арка из цветов и тахта для невесты" },
-    { src: "img/w06.jpg", ev: 0, cap: "Композиция на гостевой стол, белые цветы и свечи" },
-    { src: "img/w07.jpg", ev: 4, cap: "Тұсау кесер: шары и стол для малыша", big: true },
-    { src: "img/w03.jpg", ev: 0, cap: "Свадьба: сцена с цветами и светом" },
-    { src: "img/w08.jpg", ev: 2, cap: "Сырға салу: фотозона в пудровых тонах", tall: true },
-    { src: "img/w05.jpg", ev: 1, cap: "Қыз ұзату: зал в красном и золотом" },
-    { src: "img/w10.jpg", ev: 3, cap: "Құдалық: вэлком-зона с белой аркой", tall: true },
-    { src: "img/w09.jpg", ev: 2, cap: "Сырға салу: шары, цветы и сладкий стол" },
-    { src: "img/w11.jpg", ev: 0, cap: "Выездная регистрация на улице" },
-    { src: "img/w12.jpg", ev: 5, cap: "Юбилей: гостевые столы с цветами" },
-    { src: "img/w13.jpg", ev: 3, cap: "Құдалық: белый зал с цветами на столах" }
+    { src: "img/g01.jpg", k: 0, cap: "Большой зал: чехлы с золотыми бантами и цветы на столах", big: true },
+    { src: "img/g02.jpg", k: 1, cap: "Стол молодых: дорожка из роз, драпировка и буквы-инициалы", wide: true },
+    { src: "img/g03.jpg", k: 3, cap: "Фотозона: драпировка и цветы в персиковых тонах", tall: true },
+    { src: "img/g05.jpg", k: 2, cap: "Композиция на гостевой стол: белые цветы и свечи" },
+    { src: "img/g06.jpg", k: 4, cap: "Первый день рождения: шары, большие буквы и сладкий стол", big: true },
+    { src: "img/g04.jpg", k: 0, cap: "Зал в красном и золотом: цветы в высоких вазах" },
+    { src: "img/g08.jpg", k: 3, cap: "Фотозона: белая арка из цветов и кресла", tall: true },
+    { src: "img/g07.jpg", k: 1, cap: "Стол молодых: белая драпировка, цветы и гостевые столы" },
+    { src: "img/g09.jpg", k: 2, cap: "Длинные столы: цветочные дорожки и свечи" },
+    { src: "img/g11.jpg", k: 3, cap: "Фотозона: колонна из золотых шаров у живой стены", tall: true },
+    { src: "img/g10.jpg", k: 0, cap: "Сцена: стена из цветов и подсветка" },
+    { src: "img/g12.jpg", k: 4, cap: "День рождения: арка из шаров и сладкий стол" },
+    { src: "img/g13.jpg", k: 5, cap: "Выездная регистрация: шатёр, цветы и стулья в чехлах" },
+    { src: "img/g15.jpg", k: 4, cap: "День рождения: шары, бахрома и тюльпаны", tall: true },
+    { src: "img/g14.jpg", k: 2, cap: "Гостевые столы: номера столов и красные цветы" }
   ]
 };
 
@@ -534,31 +540,32 @@ document.querySelectorAll(".js-wa").forEach(a => { a.href = wa(a.dataset.msg || 
 // Работы: фильтр по поводу, стена фото и просмотр
 const wall = document.getElementById("wall"), chips = document.getElementById("chips");
 let shown = SITE.photos;
-function drawWall(ev) {
-  shown = ev < 0 ? SITE.photos : SITE.photos.filter(p => p.ev === ev);
+function drawWall(k) {
+  shown = k < 0 ? SITE.photos : SITE.photos.filter(p => p.k === k);
   wall.replaceChildren();
   shown.forEach((p, i) => {
     const b = document.createElement("button");
     b.type = "button";
-    if (ev < 0 && p.big) b.classList.add("big");
+    if (k < 0 && p.big) b.classList.add("big");
     if (p.tall) b.classList.add("tall");
+    if (p.wide) b.classList.add("wide");
     b.setAttribute("aria-label", p.cap);
     const img = document.createElement("img");
     img.src = p.src; img.alt = p.cap; img.loading = i < 4 ? "eager" : "lazy"; img.decoding = "async";
-    const t = document.createElement("span"); t.className = "tag"; t.textContent = SITE.events[p.ev];
+    const t = document.createElement("span"); t.className = "tag"; t.textContent = SITE.kinds[p.k];
     b.append(img, t);
     b.addEventListener("click", () => openLb(i));
     wall.append(b);
   });
 }
-["Все"].concat(SITE.events).forEach((name, k) => {
-  const ev = k - 1;
-  if (ev >= 0 && !SITE.photos.some(p => p.ev === ev)) return;
+["Все"].concat(SITE.kinds).forEach((name, i) => {
+  const k = i - 1;
+  if (k >= 0 && !SITE.photos.some(p => p.k === k)) return;
   const b = document.createElement("button");
-  b.type = "button"; b.textContent = name; b.setAttribute("aria-pressed", String(ev < 0));
+  b.type = "button"; b.textContent = name; b.setAttribute("aria-pressed", String(k < 0));
   b.addEventListener("click", () => {
     chips.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-    drawWall(ev);
+    drawWall(k);
   });
   chips.append(b);
 });
